@@ -7,11 +7,11 @@ extends Node
 @export var height: int = 8
 @export var pos: Vector2i
 var _oldPos: Vector2i
-var tiles = {}
+var tiles: Dictionary[Variant, Variant] = {}
 
 var tileViewPrefab: PackedScene = preload("res://Prefabs/Tile.tscn")
 var tileSelectionIndicatorPrefab: PackedScene = preload("res://Prefabs/TileIndicator.tscn")
-var marker
+var marker : Node
 var _random: RandomNumberGenerator = RandomNumberGenerator.new()
 var savePath: String = "res://Data/Levels/"
 @export var fileName: String = "defaultMap.txt"
@@ -21,6 +21,7 @@ func Clear():
 	for key in tiles:
 		tiles[key].free()
 	tiles.clear()
+	_UpdateMarker()
 
 func _GetOrCreate(p: Vector2i):
 	if tiles.has(p):
@@ -42,7 +43,7 @@ func _GrowSingle(p: Vector2i):
 	if t.height < height:
 		t.Grow()
 		_UpdateMarker()
-func _ShrinkSingle(p: Vector2i):
+func _ShrinkSingle(p: Vector2i) -> void:
 	if not tiles.has(p):
 		return
 	
@@ -63,12 +64,12 @@ func Shrink():
 func _GrowRect(rect: Rect2i):
 	for y in range(rect.position.y,rect.end.y):
 		for x in range(rect.position.x,rect.end.x):
-			var p = Vector2i(x,y)
+			var p: Vector2i = Vector2i(x,y)
 			_GrowSingle(p)
 func _ShrinkRect(rect: Rect2i):
 	for y in range(rect.position.y,rect.end.y):
 		for x in range(rect.position.x,rect.end.x):
-			var p = Vector2i(x,y)
+			var p: Vector2i = Vector2i(x,y)
 			_ShrinkSingle(p)
 
 func GrowArea():
@@ -80,10 +81,10 @@ func ShrinkArea():
 	_ShrinkRect(r)
 
 func Save():
-	var saveFile = savePath + fileName
-	var save_game = FileAccess.open(saveFile, FileAccess.WRITE)
-	var version = 1
-	var size = tiles.size()
+	var saveFile: String = savePath + fileName
+	var save_game: FileAccess = FileAccess.open(saveFile, FileAccess.WRITE)
+	var version: int = 1
+	var size: int = tiles.size()
 	
 	save_game.store_8(version)
 	save_game.store_16(size)
@@ -95,21 +96,21 @@ func Save():
 		
 	save_game.close()
 
-func Load():
+func Load() -> void:
 	Clear()
 	
-	var saveFile = savePath + fileName
+	var saveFile: String = savePath + fileName
 	if not FileAccess.file_exists(saveFile):
 		return # Error! We don't have a save to load.
 		
-	var save_game = FileAccess.open(saveFile, FileAccess.READ)
-	var version = save_game.get_8()
-	var size = save_game.get_16()
+	var save_game: FileAccess = FileAccess.open(saveFile, FileAccess.READ)
+	var version: int = save_game.get_8()
+	var size: int = save_game.get_16()
 	
 	for i in range(size):
-		var save_x = save_game.get_8()
-		var save_z = save_game.get_8()
-		var save_height = save_game.get_8()
+		var save_x: int = save_game.get_8()
+		var save_z: int = save_game.get_8()
+		var save_height: int = save_game.get_8()
 		
 		var t: Tile = _Create()
 		t.Load(Vector2i(save_x, save_z) , save_height)
@@ -119,13 +120,13 @@ func Load():
 	_UpdateMarker()
 
 func SaveJSON():
-	var main_dict = {
+	var main_dict: Dictionary[Variant, Variant] = {
 		"version": "1.0.0",
 		"tiles": []
 	}
 		
 	for key in tiles:
-		var save_dict = {
+		var save_dict: Dictionary[Variant, Variant] = {
 			"pos_x" : tiles[key].pos.x,
 			"pos_z" : tiles[key].pos.y,
 			"height" : tiles[key].height
@@ -134,12 +135,12 @@ func SaveJSON():
 
 	#var saveFile = savePath + fileName
 	#var save_game = FileAccess.open(saveFile, FileAccess.WRITE)
-	var save_game = FileAccess.open("res://Data/Levels/savegame.json", FileAccess.WRITE)
+	var save_game: FileAccess = FileAccess.open("res://Data/Levels/savegame.json", FileAccess.WRITE)
 	
-	var json_string = JSON.stringify(main_dict, "\t", false)
+	var json_string: String = JSON.stringify(main_dict, "\t", false)
 	save_game.store_line(json_string)
 
-func LoadJSON():
+func LoadJSON() -> void:
 	Clear()
 
 	#var saveFile = savePath + fileName
@@ -148,17 +149,17 @@ func LoadJSON():
 		return # Error! We don't have a save to load.
 	
 	#var save_game = FileAccess.open(saveFile, FileAccess.READ)	
-	var save_game = FileAccess.open("res://Data/Levels/savegame.json", FileAccess.READ)	
+	var save_game: FileAccess = FileAccess.open("res://Data/Levels/savegame.json", FileAccess.READ)	
 
-	var json_text = save_game.get_as_text()	
-	var json = JSON.new()
-	var parse_result = json.parse(json_text)
+	var json_text: String = save_game.get_as_text()	
+	var json: JSON = JSON.new()
+	var parse_result: int = json.parse(json_text)
 
 	if parse_result != OK:
 		print("Error %s reading json file." % parse_result)
 		return
 		
-	var data = {}
+	var data: Dictionary[Variant, Variant] = {}
 	data = json.get_data()
 
 	for mtile in data["tiles"]:
