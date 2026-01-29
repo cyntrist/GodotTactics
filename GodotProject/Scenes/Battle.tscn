@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bmlowe7u37s3d"]
+
+[ext_resource type="Script" uid="uid://fbg1mird7j24" path="res://Scripts/Controller/BattleController.gd" id="1_wvl2i"]
+[ext_resource type="Script" uid="uid://46x3meve2to0" path="res://Scripts/Controller/InputController.gd" id="2_2h7oj"]
+[ext_resource type="Script" uid="uid://dqsf58gu1fb32" path="res://Scripts/PreProduction/BoardCreator.gd" id="2_vr6xi"]
+
+[node name="Battle" type="Node3D" unique_id=578672256]
+
+[node name="Battle Controller" type="Node" parent="." unique_id=925921865]
+script = ExtResource("1_wvl2i")
+
+[node name="Input Controller" type="Node" parent="Battle Controller" unique_id=1517775249]
+script = ExtResource("2_2h7oj")
+
+[node name="Board" type="Node3D" parent="Battle Controller" unique_id=5386776]
+script = ExtResource("2_vr6xi")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Battle Controller" unique_id=1059224021]
+
+[node name="Camera Controller" type="Node3D" parent="Battle Controller" unique_id=2009810650]
+
+[node name="Heading" type="Node3D" parent="Battle Controller/Camera Controller" unique_id=171716726]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0, 0)
+
+[node name="Pitch" type="Node3D" parent="Battle Controller/Camera Controller/Heading" unique_id=1425764070]
+transform = Transform3D(1, 0, 0, 0, 0.81915206, 0.57357645, 0, -0.57357645, 0.81915206, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Battle Controller/Camera Controller/Heading/Pitch" unique_id=1564875872]
+projection = 1
+size = 10.0
