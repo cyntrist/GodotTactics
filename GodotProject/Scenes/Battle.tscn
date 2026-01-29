@@ -3,11 +3,15 @@
 [ext_resource type="Script" uid="uid://fbg1mird7j24" path="res://Scripts/Controller/BattleController.gd" id="1_wvl2i"]
 [ext_resource type="Script" uid="uid://46x3meve2to0" path="res://Scripts/Controller/InputController.gd" id="2_2h7oj"]
 [ext_resource type="Script" uid="uid://dqsf58gu1fb32" path="res://Scripts/PreProduction/BoardCreator.gd" id="2_vr6xi"]
+[ext_resource type="Script" uid="uid://cpd4ods38k828" path="res://Scripts/Controller/CameraController.gd" id="4_1samx"]
 
 [node name="Battle" type="Node3D" unique_id=578672256]
 
-[node name="Battle Controller" type="Node" parent="." unique_id=925921865]
+[node name="Battle Controller" type="Node" parent="." unique_id=925921865 node_paths=PackedStringArray("board", "inputController", "cameraController")]
 script = ExtResource("1_wvl2i")
+board = NodePath("Board")
+inputController = NodePath("Input Controller")
+cameraController = NodePath("Camera Controller")
 
 [node name="Input Controller" type="Node" parent="Battle Controller" unique_id=1517775249]
 script = ExtResource("2_2h7oj")
@@ -18,6 +22,7 @@ script = ExtResource("2_vr6xi")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Battle Controller" unique_id=1059224021]
 
 [node name="Camera Controller" type="Node3D" parent="Battle Controller" unique_id=2009810650]
+script = ExtResource("4_1samx")
 
 [node name="Heading" type="Node3D" parent="Battle Controller/Camera Controller" unique_id=171716726]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0, 0)
