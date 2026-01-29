@@ -33,3 +33,5 @@ transform = Transform3D(1, 0, 0, 0, 0.81915206, 0.57357645, 0, -0.57357645, 0.81
 [node name="Camera3D" type="Camera3D" parent="Battle Controller/Camera Controller/Heading/Pitch" unique_id=1564875872]
 projection = 1
 size = 10.0
+
+[node name="Test" type="Node" parent="Battle Controller" unique_id=80853708]
