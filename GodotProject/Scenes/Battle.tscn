@@ -35,12 +35,13 @@ script = ExtResource("2_2h7oj")
 script = ExtResource("2_vr6xi")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Battle Controller" unique_id=1059224021]
+transform = Transform3D(0.70710677, 0.49999997, -0.49999997, 0, 0.70710677, 0.70710677, 0.70710677, -0.49999997, 0.49999997, 0, 0, 0)
 
 [node name="Camera Controller" type="Node3D" parent="Battle Controller" unique_id=2009810650]
 script = ExtResource("4_1samx")
 
 [node name="Heading" type="Node3D" parent="Battle Controller/Camera Controller" unique_id=171716726]
-transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0, 0)
+transform = Transform3D(0.7071067, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071067, 0, 0, 0)
 
 [node name="Pitch" type="Node3D" parent="Battle Controller/Camera Controller/Heading" unique_id=1425764070]
 transform = Transform3D(1, 0, 0, 0, 0.81915206, 0.57357645, 0, -0.57357645, 0.81915206, 0, 0, 0)

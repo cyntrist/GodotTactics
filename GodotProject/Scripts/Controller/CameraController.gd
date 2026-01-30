@@ -49,17 +49,19 @@ func setFollow(follow: Node3D):
 		
 func AdjustedMovement(originalPoint:Vector2i):
 	var angle = rad_to_deg($Heading.rotation.y)
-
+	var offset = 1 # guarrada
+	angle -= offset;
+	
 	if ((angle >= -45 && angle < 45) || ( angle < -315 || angle >= 315)):
 		return originalPoint
 		
-	elif ((angle >= 45 && angle < 130) || ( angle >= -315 && angle < -210 )):
+	elif ((angle >= 46 && angle < 131) || ( angle >= -316 && angle < -211 )):
 		return Vector2i( originalPoint.y, originalPoint.x * -1)
 		
-	elif ((angle >= 130 && angle < 210) || ( angle >= -210 && angle < -130 )):
+	elif ((angle >= 131 && angle < 211) || ( angle >= -211 && angle < -131 )):
 		return Vector2i(originalPoint.x * -1, originalPoint.y * -1)
 
-	elif ((angle >= 210 && angle < 315) || ( angle >= -130 && angle < -45 )):
+	elif ((angle >= 211 && angle < 316) || ( angle >= -130 && angle < -45 )):
 		return Vector2i(originalPoint.y * -1, originalPoint.x)
 
 	else:
