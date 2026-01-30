@@ -2,17 +2,31 @@
 
 [ext_resource type="Script" uid="uid://fbg1mird7j24" path="res://Scripts/Controller/BattleController.gd" id="1_wvl2i"]
 [ext_resource type="Script" uid="uid://46x3meve2to0" path="res://Scripts/Controller/InputController.gd" id="2_2h7oj"]
+[ext_resource type="Script" uid="uid://dbhjtqwc0wiaf" path="res://Scripts/Controller/Battle States/InitBattleState.gd" id="2_8teo4"]
+[ext_resource type="Script" uid="uid://c60esj4bwtdot" path="res://Scripts/Common/State Machine/StateMachine.gd" id="2_c5ef4"]
 [ext_resource type="Script" uid="uid://dqsf58gu1fb32" path="res://Scripts/PreProduction/BoardCreator.gd" id="2_vr6xi"]
+[ext_resource type="Script" uid="uid://cgvcj6ih46syl" path="res://Scripts/Controller/Battle States/MoveTargetState.gd" id="3_c5ef4"]
 [ext_resource type="Script" uid="uid://cpd4ods38k828" path="res://Scripts/Controller/CameraController.gd" id="4_1samx"]
-[ext_resource type="Script" uid="uid://darkkl3re0sj4" path="res://Scripts/Test/test.gd" id="5_p46lj"]
 
 [node name="Battle" type="Node3D" unique_id=578672256]
 
-[node name="Battle Controller" type="Node" parent="." unique_id=925921865 node_paths=PackedStringArray("board", "inputController", "cameraController")]
+[node name="Battle Controller" type="Node" parent="." unique_id=925921865 node_paths=PackedStringArray("board", "inputController", "cameraController", "stateMachine", "startState")]
 script = ExtResource("1_wvl2i")
 board = NodePath("Board")
 inputController = NodePath("Input Controller")
 cameraController = NodePath("Camera Controller")
+stateMachine = NodePath("State Machine")
+startState = NodePath("State Machine/Init Battle State")
+
+[node name="State Machine" type="Node" parent="Battle Controller" unique_id=625778923]
+script = ExtResource("2_c5ef4")
+
+[node name="Init Battle State" type="Node" parent="Battle Controller/State Machine" unique_id=195289145 node_paths=PackedStringArray("moveTargetState")]
+script = ExtResource("2_8teo4")
+moveTargetState = NodePath("../Move Target State")
+
+[node name="Move Target State" type="Node" parent="Battle Controller/State Machine" unique_id=974689967]
+script = ExtResource("3_c5ef4")
 
 [node name="Input Controller" type="Node" parent="Battle Controller" unique_id=1517775249]
 script = ExtResource("2_2h7oj")
@@ -35,6 +49,3 @@ transform = Transform3D(1, 0, 0, 0, 0.81915206, 0.57357645, 0, -0.57357645, 0.81
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
 projection = 1
 size = 10.0
-
-[node name="Test" type="Node" parent="Battle Controller" unique_id=80853708]
-script = ExtResource("5_p46lj")

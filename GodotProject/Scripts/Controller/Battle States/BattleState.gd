@@ -1,0 +1,42 @@
+extends State
+class_name BattleState
+
+var _owner: BattleController
+
+func _ready():
+	_owner = get_node("../../")
+
+func AddListeners():
+	_owner.inputController.cameraZoomEvent.connect(Zoom)
+	_owner.inputController.cameraRotateEvent.connect(Orbit)
+	_owner.inputController.moveEvent.connect(OnMove)
+	_owner.inputController.fireEvent.connect(OnFire)
+	_owner.inputController.quitEvent.connect(OnQuit)
+
+func RemoveListeners():
+	_owner.inputController.cameraZoomEvent.disconnect(Zoom)
+	_owner.inputController.cameraRotateEvent.disconnect(Orbit)
+	_owner.inputController.moveEvent.disconnect(OnMove)
+	_owner.inputController.fireEvent.disconnect(OnFire)
+	_owner.inputController.quitEvent.disconnect(OnQuit)	
+
+func OnMove(e:Vector2i):
+	pass
+
+func OnFire(e:int):
+	pass
+
+func SelectTile(p:Vector2i):
+	if _owner.board.pos == p:
+		return
+	
+	_owner.board.pos = p
+	
+func OnQuit():
+	get_tree().quit()
+	
+func Zoom(scroll: int):
+	pass
+		
+func Orbit(direction: Vector2):
+	pass
