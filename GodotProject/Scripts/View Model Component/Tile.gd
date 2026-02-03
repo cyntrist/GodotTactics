@@ -7,6 +7,11 @@ const stepHeight: float = 0.25
 var pos: Vector2i
 var height: int
 
+var content: Node
+
+var prev: Tile
+var distance: int
+
 func center() ->Vector3:
 	return Vector3(pos.x, height * stepHeight, pos.y)
 	

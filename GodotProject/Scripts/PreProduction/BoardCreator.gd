@@ -15,7 +15,8 @@ var marker : Node
 var _random: RandomNumberGenerator = RandomNumberGenerator.new()
 var savePath: String = "res://Data/Levels/"
 @export var fileName: String = "defaultMap.txt"
-
+var selectedTileColor:Color = Color(0, 1, 1, 1)
+var defaultTileColor:Color = Color(1, 1, 1, 1)
 
 func Clear():
 	for key in tiles:
@@ -211,3 +212,44 @@ func _RandomRect():
 	var w: int = _random.randi_range(1, width - x)
 	var h: int = _random.randi_range(1, depth - y)
 	return Rect2i(x, y, w, h)
+	
+func ClearSearch():
+	for key in tiles:
+		tiles[key].prev = null
+		tiles[key].distance = 2147483647 #max signed 32bit number
+		
+func GetTile(p: Vector2i):
+	return tiles[p] if tiles.has(p) else null
+	
+func Search(start: Tile, addTile: Callable):
+	var retValue = []
+	retValue.append(start)	
+	ClearSearch()
+	var checkNext = []
+	
+	start.distance = 0
+	checkNext.push_back(start)
+
+	var _dirs = [Vector2i(0,1), Vector2i(0,-1), Vector2i(1,0), Vector2i(-1,0)]
+	
+	while checkNext.size() > 0:
+		var t:Tile = checkNext.pop_front()
+		#_dirs.shuffle() #Optional. May impact performance	
+		for i in _dirs.size():
+			var next:Tile = GetTile(t.pos + _dirs[i])
+			if next == null || next.distance <= t.distance + 1:
+				continue
+			if addTile.call(t, next):
+				next.distance = t.distance + 1
+				next.prev = t
+				checkNext.push_back(next)
+				retValue.append(next)
+	return retValue
+	
+func SelectTiles(tileList:Array):	
+	for i in tileList.size():
+		tileList[i].get_node("MeshInstance3D").material_override.albedo_color = selectedTileColor
+
+func DeSelectTiles(tileList:Array):
+	for i in tileList.size():
+		tileList[i].get_node("MeshInstance3D").material_override.albedo_color = defaultTileColor

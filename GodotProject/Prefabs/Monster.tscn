@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://br4vg8x2i7ot7"]
+[gd_scene format=3 uid="uid://br4vg8x2i7ot7"]
 
+[ext_resource type="Script" uid="uid://dhshy3qs2roxm" path="res://Scripts/View Model Component/Unit.gd" id="1_ch8ds"]
 [ext_resource type="Material" uid="uid://16vq8my13pa1" path="res://Materials/Enemy.tres" id="1_sn3ox"]
 [ext_resource type="Material" uid="uid://dncewx4c07lwe" path="res://Materials/Eyes.tres" id="2_6al71"]
 
@@ -7,19 +8,20 @@
 
 [sub_resource type="SphereMesh" id="SphereMesh_vy0th"]
 
-[node name="Hero" type="Node3D"]
+[node name="Hero" type="Node3D" unique_id=567376130]
+script = ExtResource("1_ch8ds")
 
-[node name="Body" type="MeshInstance3D" parent="."]
+[node name="Body" type="MeshInstance3D" parent="." unique_id=1582422629]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 material_override = ExtResource("1_sn3ox")
 mesh = SubResource("SphereMesh_7618x")
 
-[node name="Eye" type="MeshInstance3D" parent="."]
+[node name="Eye" type="MeshInstance3D" parent="." unique_id=84111341]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0.17, 0.33, 0.3)
 material_override = ExtResource("2_6al71")
 mesh = SubResource("SphereMesh_vy0th")
 
-[node name="Eye2" type="MeshInstance3D" parent="."]
+[node name="Eye2" type="MeshInstance3D" parent="." unique_id=1915478081]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -0.17, 0.33, 0.3)
 material_override = ExtResource("2_6al71")
 mesh = SubResource("SphereMesh_vy0th")
