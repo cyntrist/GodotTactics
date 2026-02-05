@@ -10,7 +10,7 @@ var _oldPos: Vector2i
 var tiles: Dictionary[Variant, Variant] = {}
 
 var tileViewPrefab: PackedScene = preload("res://Prefabs/Tile.tscn")
-var tileSelectionIndicatorPrefab: PackedScene = preload("res://Prefabs/TileIndicator.tscn")
+var tileSelectionIndicatorPrefab: PackedScene = preload("res://Prefabs/Tile Selection Indicator.tscn")
 var marker : Node
 var _random: RandomNumberGenerator = RandomNumberGenerator.new()
 var savePath: String = "res://Data/Levels/"

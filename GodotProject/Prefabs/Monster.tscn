@@ -11,17 +11,24 @@
 [node name="Hero" type="Node3D" unique_id=567376130]
 script = ExtResource("1_ch8ds")
 
-[node name="Body" type="MeshInstance3D" parent="." unique_id=1582422629]
+[node name="Movement" type="Node" parent="." unique_id=197747486]
+
+[node name="Jumper" type="Node3D" parent="." unique_id=1356637132]
+
+[node name="Body" type="MeshInstance3D" parent="Jumper" unique_id=1582422629]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 material_override = ExtResource("1_sn3ox")
 mesh = SubResource("SphereMesh_7618x")
+skeleton = NodePath("../..")
 
-[node name="Eye" type="MeshInstance3D" parent="." unique_id=84111341]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0.17, 0.33, 0.3)
+[node name="Eye" type="MeshInstance3D" parent="Jumper/Body" unique_id=84111341]
+transform = Transform3D(0.3125, 0, 0, 0, 0.3125, 0, 0, 0, 0.3125, 0.2125, 0.41250002, 0.375)
 material_override = ExtResource("2_6al71")
 mesh = SubResource("SphereMesh_vy0th")
+skeleton = NodePath("../../..")
 
-[node name="Eye2" type="MeshInstance3D" parent="." unique_id=1915478081]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -0.17, 0.33, 0.3)
+[node name="Eye2" type="MeshInstance3D" parent="Jumper/Body" unique_id=1915478081]
+transform = Transform3D(0.3125, 0, 0, 0, 0.3125, 0, 0, 0, 0.3125, -0.2125, 0.41250002, 0.375)
 material_override = ExtResource("2_6al71")
 mesh = SubResource("SphereMesh_vy0th")
+skeleton = NodePath("../../..")

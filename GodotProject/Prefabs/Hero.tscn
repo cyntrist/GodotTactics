@@ -14,10 +14,9 @@ script = ExtResource("1_5e4c0")
 [node name="Movement" type="Node" parent="." unique_id=948993201]
 
 [node name="Jumper" type="Node3D" parent="." unique_id=920073686]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -0.17, 0.33, 0.3)
 
 [node name="Body" type="MeshInstance3D" parent="Jumper" unique_id=1741200491]
-transform = Transform3D(3.2, 0, 0, 0, 3.2, 0, 0, 0, 3.2, 0.68, -1.32, -1.2)
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 material_override = ExtResource("1_r6hy6")
 mesh = SubResource("SphereMesh_7618x")
 skeleton = NodePath("../..")

@@ -29,13 +29,13 @@ script = ExtResource("2_c5ef4")
 script = ExtResource("2_8teo4")
 selectUnitState = NodePath("../Select Unit State")
 
-[node name="Select Unit State" type="Node" parent="Battle Controller/State Machine" unique_id=1079859016 node_paths=PackedStringArray("moveTargetState")]
-script = ExtResource("4_6yjxy")
-moveTargetState = NodePath("../Move Target State")
-
 [node name="Move Target State" type="Node" parent="Battle Controller/State Machine" unique_id=974689967 node_paths=PackedStringArray("MoveSequenceState")]
 script = ExtResource("3_c5ef4")
 MoveSequenceState = NodePath("../Move Sequence State")
+
+[node name="Select Unit State" type="Node" parent="Battle Controller/State Machine" unique_id=1079859016 node_paths=PackedStringArray("moveTargetState")]
+script = ExtResource("4_6yjxy")
+moveTargetState = NodePath("../Move Target State")
 
 [node name="Move Sequence State" type="Node" parent="Battle Controller/State Machine" unique_id=838866017 node_paths=PackedStringArray("SelectUnitState")]
 script = ExtResource("6_qxnh6")
