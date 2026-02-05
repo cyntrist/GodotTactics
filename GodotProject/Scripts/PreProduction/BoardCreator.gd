@@ -253,3 +253,23 @@ func SelectTiles(tileList:Array):
 func DeSelectTiles(tileList:Array):
 	for i in tileList.size():
 		tileList[i].get_node("MeshInstance3D").material_override.albedo_color = defaultTileColor
+		
+func RangeSearch(start: Tile, addTile: Callable, range: int):
+	var retValue = []
+	ClearSearch()
+	start.distance = 0
+	
+	for y in range(-range, range+1):
+		for x in range(-range + abs(y), range - abs(y) +1):
+			var next:Tile = GetTile(start.pos + Vector2i(x,y))
+			if next == null:
+				continue
+				
+			if next == start:
+				retValue.append(start)
+			elif addTile.call(start, next):
+				next.distance = (abs(x) + abs(y))
+				next.prev = start
+				retValue.append(next)
+	
+	return retValue
