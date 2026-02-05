@@ -8,6 +8,6 @@
 [node name="Tile" type="Node3D" unique_id=1829296386]
 script = ExtResource("1_sjfy7")
 
-[node name="Body" type="MeshInstance3D" parent="." unique_id=1554259159]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1554259159]
 material_override = ExtResource("1_nwpcb")
 mesh = SubResource("BoxMesh_adx15")
