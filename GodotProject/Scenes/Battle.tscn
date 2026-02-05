@@ -39,7 +39,7 @@ moveTargetState = NodePath("../Move Target State")
 
 [node name="Move Sequence State" type="Node" parent="Battle Controller/State Machine" unique_id=838866017 node_paths=PackedStringArray("SelectUnitState")]
 script = ExtResource("6_qxnh6")
-SelectUnitState = NodePath(".")
+SelectUnitState = NodePath("../Select Unit State")
 
 [node name="Input Controller" type="Node" parent="Battle Controller" unique_id=1517775249]
 script = ExtResource("2_2h7oj")
