@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://dl2eepdefma7n"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sj1xi"]
+
+[node name="AnchorTests" type="Node" unique_id=104400893]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=79218743]
+anchors_preset = -1
+anchor_right = 0.33
+anchor_bottom = 1.0
+
+[node name="ParentPanel" type="Panel" parent="." unique_id=1222152057]
+anchors_preset = -1
+anchor_left = 0.4
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 75.0
+offset_right = -75.0
+offset_bottom = -75.0
+
+[node name="VRect" type="ReferenceRect" parent="ParentPanel" unique_id=851376915]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+editor_only = false
+
+[node name="HRect" type="ReferenceRect" parent="ParentPanel" unique_id=466027643]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+editor_only = false
+
+[node name="FullRect" type="ReferenceRect" parent="ParentPanel" unique_id=1248215172]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+editor_only = false
+
+[node name="AnchorInfo" type="Label" parent="ParentPanel" unique_id=1837394672]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Placeholder Text"
+label_settings = SubResource("LabelSettings_sj1xi")
