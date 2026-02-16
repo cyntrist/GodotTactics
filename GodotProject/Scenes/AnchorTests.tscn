@@ -1,6 +1,26 @@
 [gd_scene format=3 uid="uid://dl2eepdefma7n"]
 
+[ext_resource type="Script" uid="uid://d3xq6qf301p2r" path="res://Scripts/Common/UI/LayoutAnchor.gd" id="1_mbloj"]
+[ext_resource type="Script" uid="uid://oaeh5tcu2oey" path="res://Scripts/Test/PanelTests2.gd" id="2_rucc2"]
+[ext_resource type="Script" uid="uid://d2w10v1xx5kep" path="res://Scripts/Common/UI/PanelAnchor.gd" id="3_djp7t"]
+
 [sub_resource type="LabelSettings" id="LabelSettings_sj1xi"]
+
+[sub_resource type="Resource" id="Resource_w2wb7"]
+script = ExtResource("3_djp7t")
+anchorName = "Show"
+myAnchor = 2
+parentAnchor = 2
+offset = Vector2(20, -20)
+metadata/_custom_type_script = "uid://d2w10v1xx5kep"
+
+[sub_resource type="Resource" id="Resource_vuyvl"]
+script = ExtResource("3_djp7t")
+anchorName = "Hide"
+myAnchor = 3
+parentAnchor = 3
+offset = Vector2(-20, -20)
+metadata/_custom_type_script = "uid://d2w10v1xx5kep"
 
 [node name="AnchorTests" type="Node" unique_id=104400893]
 
@@ -41,8 +61,23 @@ anchor_bottom = 1.0
 editor_only = false
 
 [node name="AnchorInfo" type="Label" parent="ParentPanel" unique_id=1837394672]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -75.0
 text = "Placeholder Text"
 label_settings = SubResource("LabelSettings_sj1xi")
+
+[node name="ChildPanel" type="Panel" parent="ParentPanel" unique_id=810983212]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_mbloj")
+
+[node name="PanelTestController" type="Node" parent="ParentPanel/ChildPanel" unique_id=1380579702 node_paths=PackedStringArray("childPanel", "vbox")]
+script = ExtResource("2_rucc2")
+childPanel = NodePath("..")
+vbox = NodePath("../../../VBoxContainer")
+animated = true
+anchorList = Array[ExtResource("3_djp7t")]([SubResource("Resource_w2wb7"), SubResource("Resource_vuyvl")])
