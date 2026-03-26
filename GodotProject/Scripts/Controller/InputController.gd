@@ -5,6 +5,7 @@ signal fireEvent(button:int)
 signal quitEvent()
 signal moveEvent(point:Vector2i)
 signal cameraRotateEvent(point:Vector2)
+signal cameraPitchEvent(point:Vector2)
 signal cameraZoomEvent(scroll:int)
 
 var _hor:Repeater = Repeater.new('move_left', 'move_right')
@@ -37,11 +38,17 @@ func _process(delta):
 	if _camZoomDown.Update():
 		cameraZoomEvent.emit(1)		
 		
-	var camX = Input.get_axis('camera_right','camera_left')
+#	var camX = Input.get_axis('camera_right','camera_left')
 	var camY = Input.get_axis('camera_down', 'camera_up')
+#	if camX !=0 || camY !=0:
+	if camY !=0:
+		cameraPitchEvent.emit(Vector2(0,camY))
+
+	if Input.is_action_just_pressed("camera_right"):
+		cameraRotateEvent.emit(Vector2(1, 0))
 	
-	if camX !=0 || camY !=0:
-		cameraRotateEvent.emit(Vector2(camX,camY))
+	if Input.is_action_just_pressed("camera_left"):
+		cameraRotateEvent.emit(Vector2(-1, 0))
 		
 	if Input.is_action_just_pressed('camera_activate'):
 		_lastMouse = get_viewport().get_mouse_position()

@@ -19,3 +19,6 @@ func Zoom(scroll: int):
 	
 func Orbit(direction: Vector2):
 	_owner.cameraController.Orbit(direction)
+
+func Pitch(direction: Vector2):
+	_owner.cameraController.Pitch(direction)

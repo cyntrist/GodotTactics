@@ -9,6 +9,7 @@ func _ready():
 func AddListeners():
 	_owner.inputController.cameraZoomEvent.connect(Zoom)
 	_owner.inputController.cameraRotateEvent.connect(Orbit)
+	_owner.inputController.cameraPitchEvent.connect(Pitch)
 	_owner.inputController.moveEvent.connect(OnMove)
 	_owner.inputController.fireEvent.connect(OnFire)
 	_owner.inputController.quitEvent.connect(OnQuit)
@@ -16,6 +17,7 @@ func AddListeners():
 func RemoveListeners():
 	_owner.inputController.cameraZoomEvent.disconnect(Zoom)
 	_owner.inputController.cameraRotateEvent.disconnect(Orbit)
+	_owner.inputController.cameraPitchEvent.disconnect(Pitch)
 	_owner.inputController.moveEvent.disconnect(OnMove)
 	_owner.inputController.fireEvent.disconnect(OnFire)
 	_owner.inputController.quitEvent.disconnect(OnQuit)	
@@ -39,4 +41,7 @@ func Zoom(scroll: int):
 	pass
 		
 func Orbit(direction: Vector2):
+	pass
+	
+func Pitch(direction: Vector2):
 	pass

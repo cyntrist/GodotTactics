@@ -1,15 +1,28 @@
 extends Node
 class_name CameraController
 
+@export_group("Follow")
 @export var _followSpeed: float = 3.0
 var _follow: Node3D
 
-var _minZoom = 5
-var _maxZoom = 20
-var _zoom = 10
+@export_group("Zoom")
+@export_range(0, 25) var _minZoom: int = 5
+@export_range(0, 25) var _maxZoom: int = 20
+var _zoom: int = 10
 
-var _minPitch = -90
-var _maxPitch = 0
+@export_group("Pitch")
+@export_range(-180, 0) var _minPitch: int = -90
+@export_range(0, 180) var _maxPitch: int = 0
+
+@export_group("Orbit")
+@export_range(0.01, 5.0, 0.1, "suffix:s") var _orbitDuration: float = 1.0
+@export var _orbitTransition: Tween.TransitionType = Tween.TRANS_LINEAR
+@export var _orbitEase: Tween.EaseType = Tween.EASE_OUT
+var _targetHeading: float
+var _rotateTween: Tween
+
+func _ready():
+	_targetHeading = $Heading.rotation.y
 
 func Zoom(scroll: int):
 	_zoom = clamp(_zoom + scroll,_minZoom, _maxZoom )
@@ -22,22 +35,42 @@ func Zoom(scroll: int):
 
 func Orbit(direction: Vector2):
 	if direction.x != 0:
-		var headingSpeed = 2
-		var headingAngle = $Heading.rotation.y
+		var step := deg_to_rad(45)
+
+		var current : float = $Heading.rotation.y
+		var raw_target := _targetHeading + direction.x * step
+
+		var diff := wrapf(raw_target - current, -PI, PI)
+		_targetHeading = current + diff
+
+		if _rotateTween and _rotateTween.is_running():
+			_rotateTween.kill()
+
+		_rotateTween = create_tween()
+		_rotateTween.tween_property(
+			$Heading,
+			"rotation:y",
+			_targetHeading,
+			_orbitDuration
+		).set_trans(_orbitTransition).set_ease(_orbitEase)
+	
+func Pitch(direction: Vector2):
+	if direction.x != 0:
+		var headingSpeed: int = 2
+		var headingAngle: float = $Heading.rotation.y
 		headingAngle += direction.x * headingSpeed * get_process_delta_time()
 		$Heading.rotation.y = headingAngle
 		while $Heading.rotation.y > deg_to_rad(360):
 			$Heading.rotation.y -= deg_to_rad(720)
 		while $Heading.rotation.y < deg_to_rad(-360):
 			$Heading.rotation.y += deg_to_rad(720)
-		
 	if direction.y !=0:
-		var orbitSpeed = 2
-		var vAngle = direction.y
-		var orbitAngle = $Heading/Pitch.rotation.x
+		var orbitSpeed: int = 2
+#		var vAngle: float = direction.y
+		var orbitAngle: float = $Heading/Pitch.rotation.x
 		orbitAngle += direction.y * orbitSpeed * get_process_delta_time()
 		orbitAngle = clamp(orbitAngle,deg_to_rad(_minPitch), deg_to_rad(_maxPitch) )
-		$Heading/Pitch.rotation.x = orbitAngle
+		$Heading/Pitch.rotation.x = orbitAngle	
 	
 func _process(delta):
 	if _follow:
@@ -48,8 +81,8 @@ func setFollow(follow: Node3D):
 		_follow = follow
 		
 func AdjustedMovement(originalPoint:Vector2i):
-	var angle = rad_to_deg($Heading.rotation.y)
-	var offset = 1 # guarrada
+	var angle: float = rad_to_deg($Heading.rotation.y)
+	var offset: int = 1 # guarrada
 	angle -= offset;
 	
 	if ((angle >= -45 && angle < 45) || ( angle < -315 || angle >= 315)):
