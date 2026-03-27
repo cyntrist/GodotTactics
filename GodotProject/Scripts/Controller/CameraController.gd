@@ -81,13 +81,13 @@ func setFollow(follow: Node3D):
 
 func AdjustedMovement(input: Vector2i) -> Vector2i:
 	match _headingIndex:
-		0: return input                          # 0°
-		1: return Vector2i(input.y, -input.x)    # 45°
-		2: return Vector2i(input.y, -input.x)    # 90°
-		3: return Vector2i(-input.x, -input.y)   # 135°
-		4: return Vector2i(-input.x, -input.y)   # 180°
-		5: return Vector2i(-input.y, input.x)    # 225°
-		6: return Vector2i(-input.y, input.x)    # 270°
-		7: return Vector2i(input.x, input.y)     # 315°
+		1: return input                          # 0°
+		2: return Vector2i(input.y, -input.x)    # 45°
+		3: return Vector2i(input.y, -input.x)    # 90°
+		4: return Vector2i(-input.x, -input.y)   # 135°
+		5: return Vector2i(-input.x, -input.y)   # 180°
+		6: return Vector2i(-input.y, input.x)    # 225°
+		7: return Vector2i(-input.y, input.x)    # 270°
+		0: return Vector2i(input.x, input.y)     # 315°
 	
 	return input
